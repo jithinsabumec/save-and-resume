@@ -104,7 +104,7 @@ h1 {
         padding: 1rem;
         justify-content: center;
         align-items: center;
-        border: 2px solid #1D1D1D;
+        border-bottom: 2px solid #1D1D1D;
         background: rgba(16, 16, 16, 0.75);
         backdrop-filter: blur(9.649999618530273px);
     }
