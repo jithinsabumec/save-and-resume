@@ -18,9 +18,16 @@ export function Hero() {
                 Save timestamps in long videos and pick up exactly where you left off.  Like a bookmark <br />for your brain, but for YouTube tutorials.
                 </h2>
             </div>
-                <div className="download-btn">
-                Download extension - it's free
-                </div>
+                <a 
+                    href="https://drive.google.com/drive/folders/1Wg7yAjcmkxLitbbCIIhXdY-znEIpWhNE?usp=sharing" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="download-link"
+                >
+                    <div className="download-btn">
+                        Download extension - it's free
+                    </div>
+                </a>
         </div>
         <img src={herodesktop} alt="Hero Image" className="hero-image-desktop" />
         <img src={heromobile} alt="Hero Image" className="hero-image-mobile" />
