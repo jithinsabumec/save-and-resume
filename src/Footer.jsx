@@ -1,5 +1,6 @@
 import * as React from "react";
 import letMeKnow from './assets/let-me-know-icon.svg';
+import supportMe from './assets/buy-me-a-coffee-icon.svg';
 
 export function Footer() {
   return (
@@ -32,7 +33,7 @@ export function Footer() {
                 className="support-me-link"
             >
                 <div className="support-me-btn">
-                    <img src={letMeKnow} alt="Support me" className="support-me-btn-icon" />
+                    <img src={supportMe} alt="Support me" className="support-me-btn-icon" />
                     <span>buy me a coffee</span>
                 </div>
             </a>
