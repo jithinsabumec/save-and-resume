@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a9b4417d.css",
+    "main.js": "/static/js/main.24cefd5b.js",
+    "static/media/hero-image.svg": "/static/media/hero-image.8048ee5cf9dad02e22f625d99719f91c.svg",
+    "static/media/icon_word.svg": "/static/media/icon_word.b425eb3328d92a09eccded2a782da700.svg",
+    "static/media/let-me-know-icon.svg": "/static/media/let-me-know-icon.7acc7ad3c5b34b5373d69ba8f4a2411f.svg",
+    "index.html": "/index.html",
+    "main.a9b4417d.css.map": "/static/css/main.a9b4417d.css.map",
+    "main.24cefd5b.js.map": "/static/js/main.24cefd5b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a9b4417d.css",
+    "static/js/main.24cefd5b.js"
+  ]
+}
