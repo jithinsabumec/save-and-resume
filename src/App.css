@@ -498,3 +498,25 @@ line-height: 1.5rem; /* 200% */
 .download-link:hover {
   text-decoration: none;
 }
+
+.support-me-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  width: fit-content;
+}
+
+.support-me-link:hover {
+  text-decoration: none;
+}
+
+.let-me-know-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  width: fit-content;
+}
+
+.let-me-know-link:hover {
+  text-decoration: none;
+}
