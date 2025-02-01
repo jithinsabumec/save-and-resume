@@ -395,7 +395,7 @@ box-shadow: 0px 1.488px 30.363px 0px rgba(0, 0, 0, 0.25);
 @media screen and (max-width: 480px) {
     .footer-btns {
         gap: 2rem;  /* Even smaller gap for mobile */
-        min-height: 30vh;
+        /* min-height: 30vh; */
         display: flex;
         flex-direction: column;
     }
