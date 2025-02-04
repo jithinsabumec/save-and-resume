@@ -19,7 +19,7 @@ export function Hero() {
                 </h2>
             </div>
                 <a 
-                    href="https://drive.google.com/drive/folders/1Wg7yAjcmkxLitbbCIIhXdY-znEIpWhNE?usp=sharing" 
+                    href="https://chromewebstore.google.com/detail/save-resume/bdhfmkbbfmbhimbnhdglopcdlkihpike" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="download-link"

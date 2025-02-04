@@ -33,19 +33,18 @@ h1 {
 }
 
 .addtochrome-btn {
-    opacity: 0.5;
   font-family: "Space Mono";
   font-weight: 400;
   text-transform: uppercase;
-  background-color: #1C1C1C;
-  color: #BDBDBD;
+  background-color: #232323;
+  color: #ffffff;
   padding: 0.375rem 0.75rem;
   border-radius: 4px;
-  border: 1px solid #292929;
+  border: 1px solid #4B4B4B;
   width: fit-content;
   font-size: 1rem;
   transition: all 0.3s ease;
-  /* cursor: pointer; */
+  cursor: pointer;
 }
 
 /* Hide on mobile screens */
@@ -55,12 +54,12 @@ h1 {
     }
 }
 
-/* .addtochrome-btn:hover {
+.addtochrome-btn:hover {
   background-color: #353333;
   color: #FFFFFF;
   border-color: #575353;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-} */
+}
 
 .logo {
   height: 2.375rem;  /* 38px for desktop */
@@ -416,7 +415,7 @@ line-height: 1.5rem; /* 200% */
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 32px;
     padding: 24px;
 }
 

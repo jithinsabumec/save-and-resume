@@ -14,6 +14,7 @@ export function Footer() {
             </div> */}
             <a 
                 href="https://www.linkedin.com/in/jithinsabu/" 
+                // href="mailto:jithinsabu.mec@gmail.com?subject=Feedback%20on%20Chrome%20Extension"
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="let-me-know-link"
