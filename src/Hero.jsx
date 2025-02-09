@@ -31,6 +31,10 @@ export function Hero() {
         </div>
         <img src={herodesktop} alt="Hero Image" className="hero-image-desktop" />
         <img src={heromobile} alt="Hero Image" className="hero-image-mobile" />
+        
+        <div>
+            <a href="https://www.producthunt.com/posts/save-resume?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-save&#0045;resume" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=840225&theme=dark&t=1739113879714" alt="Save&#0032;&#0038;&#0032;Resume - The&#0032;Ultimate&#0032;YouTube&#0032;Timestamp&#0032;Saver&#0046; | Product Hunt" className="product-hunt-badge"/></a>
+        </div>
         </div>
   );
 }
