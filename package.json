@@ -16,8 +16,7 @@
     "sync:welcome": "cp welcome.html public/welcome.html && cp icon_wordmark.svg public/icon_wordmark.svg",
     "prestart": "npm run sync:welcome",
     "start": "react-scripts start",
-    "prebuild": "npm run sync:welcome",
-    "build": "react-scripts build",
+    "build": "npm run sync:welcome && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
@@ -42,6 +41,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "gh-pages": "^6.3.0"
   }
 }
