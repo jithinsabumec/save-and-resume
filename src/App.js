@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import './App.css';
 import icon from './assets/logo(icon+wordmark).svg'
 import stepOneImage from './assets/how-it-works-01.svg';
@@ -743,6 +744,7 @@ function App() {
           </div>
         </div>
       ) : null}
+      <Analytics />
     </div>
   );
 }
