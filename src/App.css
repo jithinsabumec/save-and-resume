@@ -31,6 +31,16 @@ a {
   color: inherit;
 }
 
+::selection {
+  background: rgba(255, 255, 255, 0.88);
+  color: #07090d;
+}
+
+::-moz-selection {
+  background: rgba(255, 255, 255, 0.88);
+  color: #07090d;
+}
+
 .font-saans {
   font-family: var(--font-saans);
 }
