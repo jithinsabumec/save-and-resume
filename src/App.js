@@ -32,6 +32,7 @@ const WAITLIST_CONFIG = {
 
 const DEMO_STEP_DURATION_MS = 3500;
 const DEMO_STEP_FADE_DURATION_MS = 300;
+const DEMO_STEP_SWIPE_THRESHOLD_PX = 48;
 
 const stepItems = [
   {
@@ -208,6 +209,11 @@ function App() {
   const demoVideoRef = useRef(null);
   const visibleDemoStepIndexRef = useRef(0);
   const demoStepTransitionRef = useRef(null);
+  const demoStepSwipeRef = useRef({
+    pointerId: null,
+    startX: 0,
+    startY: 0,
+  });
 
   const resetDemoStepSequence = useCallback(() => {
     visibleDemoStepIndexRef.current = 0;
@@ -238,6 +244,72 @@ function App() {
     demoStepTransitionRef.current = nextTransition;
     setDemoStepTransition(nextTransition);
   }, []);
+
+  const clearDemoStepSwipe = useCallback(() => {
+    demoStepSwipeRef.current = {
+      pointerId: null,
+      startX: 0,
+      startY: 0,
+    };
+  }, []);
+
+  const changeDemoStepByOffset = useCallback(
+    (offset) => {
+      const totalSteps = demoModalSteps.length;
+      const currentIndex = demoStepTransitionRef.current
+        ? demoStepTransitionRef.current.toIndex
+        : visibleDemoStepIndexRef.current;
+      const nextIndex = (currentIndex + offset + totalSteps) % totalSteps;
+      beginDemoStepTransition(nextIndex);
+    },
+    [beginDemoStepTransition]
+  );
+
+  const handleDemoStepPointerDown = useCallback((event) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) {
+      return;
+    }
+
+    demoStepSwipeRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+    };
+
+    if (event.currentTarget.setPointerCapture) {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
+  }, []);
+
+  const handleDemoStepPointerUp = useCallback(
+    (event) => {
+      const swipeState = demoStepSwipeRef.current;
+
+      if (swipeState.pointerId !== event.pointerId) {
+        return;
+      }
+
+      if (
+        event.currentTarget.releasePointerCapture &&
+        event.currentTarget.hasPointerCapture &&
+        event.currentTarget.hasPointerCapture(event.pointerId)
+      ) {
+        event.currentTarget.releasePointerCapture(event.pointerId);
+      }
+
+      const deltaX = event.clientX - swipeState.startX;
+      const deltaY = event.clientY - swipeState.startY;
+
+      clearDemoStepSwipe();
+
+      if (Math.abs(deltaX) < DEMO_STEP_SWIPE_THRESHOLD_PX || Math.abs(deltaX) <= Math.abs(deltaY)) {
+        return;
+      }
+
+      changeDemoStepByOffset(deltaX < 0 ? 1 : -1);
+    },
+    [changeDemoStepByOffset, clearDemoStepSwipe]
+  );
 
   useEffect(() => {
     visibleDemoStepIndexRef.current = visibleDemoStepIndex;
@@ -606,7 +678,13 @@ function App() {
               </div>
 
               <div className="video-dialog-body">
-                <div className="demo-step-copy" aria-live="polite">
+                <div
+                  className="demo-step-copy"
+                  aria-live="polite"
+                  onPointerDown={handleDemoStepPointerDown}
+                  onPointerUp={handleDemoStepPointerUp}
+                  onPointerCancel={clearDemoStepSwipe}
+                >
                   {demoStepTransition ? (
                     <>
                       <div className="demo-step-copy-layer is-exiting">

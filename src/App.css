@@ -311,6 +311,8 @@ a {
   width: min(100%, 560px);
   min-height: 88px;
   padding-bottom: 24px;
+  touch-action: pan-y;
+  user-select: none;
 }
 
 .demo-step-copy-layer {
