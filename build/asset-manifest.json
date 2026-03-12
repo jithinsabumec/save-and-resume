@@ -1,18 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.ea5b55df.css",
-    "main.js": "/static/js/main.c6836ae9.js",
-    "static/media/hero-image.svg": "/static/media/hero-image.671a707b65152cbb541389f3745d694e.svg",
-    "static/media/hero-image-mobile.svg": "/static/media/hero-image-mobile.ac854e146c50b74d99c8c0bd9e1f153f.svg",
-    "static/media/icon_word.svg": "/static/media/icon_word.b425eb3328d92a09eccded2a782da700.svg",
-    "static/media/buy-me-a-coffee-icon.svg": "/static/media/buy-me-a-coffee-icon.a1a0769bec90e1eea0f35ad5d5a7b326.svg",
-    "static/media/let-me-know-icon.svg": "/static/media/let-me-know-icon.7acc7ad3c5b34b5373d69ba8f4a2411f.svg",
+    "main.css": "/static/css/main.44e86301.css",
+    "main.js": "/static/js/main.4a00fc41.js",
+    "static/media/phone.svg": "/static/media/phone.3562cf71c416a0218a19f13a09b193a2.svg",
+    "static/media/how-it-works-03.svg": "/static/media/how-it-works-03.cc14c4b13aadc8b825bccc9ff0ff47e7.svg",
+    "static/media/how-it-works-01.svg": "/static/media/how-it-works-01.1910f58ad9287a9d2c63266bd28c78d5.svg",
+    "static/media/how-it-works-02.svg": "/static/media/how-it-works-02.66ec8eae9482dfc14e7b9e0ee7b0c62b.svg",
+    "static/media/logo(icon+wordmark).svg": "/static/media/logo(icon+wordmark).faa1b9d73095389ec932316363963324.svg",
     "index.html": "/index.html",
-    "main.ea5b55df.css.map": "/static/css/main.ea5b55df.css.map",
-    "main.c6836ae9.js.map": "/static/js/main.c6836ae9.js.map"
+    "static/media/icon.svg": "/static/media/icon.116be85227b45800a6029f1a86f48987.svg",
+    "static/media/circle-play.svg": "/static/media/circle-play.f2255f50640ae672f42739e576f4ba0f.svg",
+    "main.44e86301.css.map": "/static/css/main.44e86301.css.map",
+    "main.4a00fc41.js.map": "/static/js/main.4a00fc41.js.map"
   },
   "entrypoints": [
-    "static/css/main.ea5b55df.css",
-    "static/js/main.c6836ae9.js"
+    "static/css/main.44e86301.css",
+    "static/js/main.4a00fc41.js"
   ]
 }
