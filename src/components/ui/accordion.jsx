@@ -21,7 +21,7 @@ const AccordionTrigger = React.forwardRef(({ className, children, ...props }, re
     >
       <span className="accordion-trigger-label">{children}</span>
       <svg className="accordion-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <path d="M4 10L8 6L12 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
       </svg>
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
