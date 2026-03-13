@@ -602,15 +602,30 @@ function App() {
           />
           <div className="footer-links">
             <div>
-              <a href={FEEDBACK_URL} target="_blank" rel="noopener noreferrer">
+              <a
+                href={FEEDBACK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover-underline-animation"
+              >
                 Feature Requests
               </a>
-              <a href={BUY_ME_A_COFFEE_URL} target="_blank" rel="noopener noreferrer">
+              <a
+                href={BUY_ME_A_COFFEE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover-underline-animation"
+              >
                 Buy me a coffee
               </a>
             </div>
             <div>
-              <a href={CHROME_WEB_STORE_URL} target="_blank" rel="noopener noreferrer">
+              <a
+                href={CHROME_WEB_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover-underline-animation"
+              >
                 Download Chrome Extension
               </a>
               <span className="footer-link-disabled" aria-disabled="true">
@@ -618,9 +633,24 @@ function App() {
               </span>
             </div>
             <div>
-              <a href="https://jithinsabumec.github.io/save-and-resume-mobile-terms-of-use/">Terms of Use</a>
-              <a href="https://jithinsabumec.github.io/save-and-resume-mobile-privacy-policy/">Privacy Policy</a>
-              <a href="https://jithinsabumec.github.io/save-and-resume-mobile-delete-account/">Delete Account</a>
+              <a
+                href="https://jithinsabumec.github.io/save-and-resume-mobile-terms-of-use/"
+                className="hover-underline-animation"
+              >
+                Terms of Use
+              </a>
+              <a
+                href="https://jithinsabumec.github.io/save-and-resume-mobile-privacy-policy/"
+                className="hover-underline-animation"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href="https://jithinsabumec.github.io/save-and-resume-mobile-delete-account/"
+                className="hover-underline-animation"
+              >
+                Delete Account
+              </a>
             </div>
           </div>
           <p className="copyright">©2026 Save &amp; Resume | Version 1.2.7</p>
