@@ -351,8 +351,8 @@ a {
 .demo-step-heading {
   margin: 0;
   color: #ffffff;
-  font-family: var(--font-saans-semi-mono);
-  font-size: 18px;
+  font-family: var(--font-saans);
+  font-size: 20px;
   line-height: 1.2;
   font-weight: 600;
 }
@@ -360,7 +360,7 @@ a {
 .demo-step-description {
   margin: 0;
   color: rgba(244, 245, 247, 0.78);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.35;
   font-weight: 500;
 }
