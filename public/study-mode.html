@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save & Resume — Study Mode is here</title>
+    <link rel="preload" href="/fonts/SaansCollectionVF-TRIAL.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/SaansSemiMonoVF-TRIAL.woff2" as="font" type="font/woff2" crossorigin>
+    <style>
+        @font-face {
+            font-family: 'Saans';
+            src: url('/fonts/SaansCollectionVF-TRIAL.woff2') format('woff2');
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Saans Semi Mono';
+            src: url('/fonts/SaansSemiMonoVF-TRIAL.woff2') format('woff2');
+            font-style: normal;
+            font-weight: 400 700;
+            font-display: swap;
+        }
+        
+
+        :root {
+            --bg: #101010;
+            --surface: #191919;
+            --surface-hover: #242424;
+            --stroke: #2D2D2D;
+            --stroke-strong: #404040;
+            --text: #FFFFFF;
+            --text-muted: #b0b0b0;
+            --text-secondary: #7C7C7C;
+            --cta-bg: #83112E;
+            --cta-bg-hover: #8A2238;
+            --cta-border: #C61743;
+            --cta-border-hover: #FF1A4B;
+            --accent: #ED1A43;
+            --accent-dim: rgba(237, 26, 67, 0.12);
+            --radius-card: 12px;
+            --radius-pill: 14px;
+        }
+
+        * { box-sizing: border-box; }
+        html, body { height: 100%; }
+
+        body {
+            margin: 0;
+            min-width: 1280px;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Saans', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 860px;
+            padding: 64px 20px 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        /* ── EYEBROW ── */
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent-dim);
+            border: 1px solid rgba(237, 26, 67, 0.3);
+            border-radius: 99px;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .eyebrow-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        /* ── HERO TEXT ── */
+        .hero {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .hero-logo {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+
+        .hero-headline {
+            margin-top: 24px;
+            margin-bottom: 8px;
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 120%;
+            color: var(--text);
+        }
+
+        .hero-headline span {
+            color: var(--accent);
+        }
+
+        .hero-sub {
+            margin: 0;
+            font-size: 18px;
+            line-height: 1.5;
+            color: var(--text-muted);
+            max-width: 560px;
+        }
+
+        /* ── VIDEO ── */
+        .video-wrap {
+            width: 100%;
+            max-width: 680px;
+            margin-bottom: 56px;
+        }
+
+        .video-frame {
+            position: relative;
+            width: 100%;
+            padding-bottom: 62.5%;
+            border-radius: 16px;
+            border: 1px solid var(--stroke);
+            background: var(--surface);
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.04);
+        }
+
+        .video-frame video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .video-loader {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(16, 16, 16, 0.72);
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .video-loader::after {
+            content: "";
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 4px solid #3a3a3a;
+            border-top-color: var(--cta-border-hover);
+            animation: spin 0.85s linear infinite;
+        }
+
+        .video-loader.is-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── SECTION LABEL ── */
+        .section-label {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* ── FEATURE CARDS ── */
+        .features {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 56px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--stroke);
+            border-radius: var(--radius-card);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .feature-card:hover {
+            background: var(--surface-hover);
+            border-color: var(--stroke-strong);
+        }
+
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            background: #363636;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            padding: 6px;
+        }
+
+        .feature-title {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .feature-desc {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #D2D2D2;
+        }
+
+        /* ── USE CASES ── */
+        .usecases {
+            width: 100%;
+            margin-bottom: 56px;
+        }
+
+        .usecase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .usecase-card {
+            background: var(--surface);
+            border: 1px solid var(--stroke);
+            border-radius: var(--radius-card);
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .usecase-card:hover {
+            background: var(--surface-hover);
+            border-color: var(--stroke-strong);
+        }
+
+        .usecase-context {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-family: 'Saans Semi Mono', sans-serif;
+            color: var(--accent);
+        }
+
+        .usecase-title {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .usecase-desc {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #D2D2D2;
+        }
+
+        /* ── HOW IT WORKS ── */
+        .how-it-works {
+            width: 100%;
+            margin-bottom: 56px;
+        }
+
+        .steps-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .step-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 20px;
+            background: var(--surface);
+            border: 1px solid var(--stroke);
+            border-radius: 10px;
+            transition: background 0.2s ease;
+        }
+
+        .step-row:hover {
+            background: var(--surface-hover);
+        }
+
+        .step-num {
+            width: 26px;
+            height: 26px;
+            min-width: 26px;
+            border-radius: 50%;
+            background: var(--accent-dim);
+            border: 1px solid rgba(237, 26, 67, 0.3);
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1px;
+        }
+
+        .step-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .step-title {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .step-desc {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #D2D2D2;
+        }
+
+        /* ── REASSURANCE BANNER ── */
+        .reassurance {
+            width: 100%;
+            background: var(--surface);
+            border-radius: var(--radius-card);
+            padding: 20px 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 48px;
+        }
+
+        .reassurance-icon {
+            width: 24px;
+            height: 24px;
+            margin-top: 4px;
+        }
+
+        .reassurance-text {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        .reassurance-text strong {
+            color: var(--text);
+        }
+
+        /* ── CTA ── */
+        .cta-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            background: var(--cta-bg);
+            border: 1px solid var(--cta-border);
+            color: var(--text);
+            text-decoration: none;
+            border-radius: var(--radius-pill);
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Saans', sans-serif;
+            line-height: 1.3;
+            padding: 12px 28px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 48px;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: var(--cta-bg-hover);
+            border-color: var(--cta-border-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(237, 26, 67, 0.2);
+        }
+
+        .cta-sub {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .footer a {
+            color: var(--text-muted);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .footer a:hover {
+            color: var(--text);
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            animation: fadeSlideUp 400ms ease-out forwards;
+        }
+
+        .reveal-1 { animation-delay: 0ms; }
+        .reveal-2 { animation-delay: 100ms; }
+        .reveal-3 { animation-delay: 200ms; }
+        .reveal-4 { animation-delay: 320ms; }
+        .reveal-5 { animation-delay: 440ms; }
+        .reveal-6 { animation-delay: 560ms; }
+        .reveal-7 { animation-delay: 680ms; }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <!-- EYEBROW -->
+        <div class="eyebrow reveal reveal-1">
+            <span class="eyebrow-dot"></span>
+            New in v1.3.0
+        </div>
+
+        <!-- HERO -->
+        <header class="hero reveal reveal-2">
+            <a href="https://saveandresume.vercel.app/" target="_self" rel="noopener noreferrer">
+                <img style="width: 120px;" src="/logo(icon+wordmark).svg" alt="Logo">
+            </a>
+            <h1 class="hero-headline">Study Mode <span>is here.</span></h1>
+            <p class="hero-sub">Save multiple timestamps, add notes to each one, and turn any YouTube video into a proper research session.</p>
+        </header>
+
+        <!-- VIDEO -->
+        <section class="video-wrap reveal reveal-3" aria-label="Study Mode demo">
+            <div class="video-frame">
+                <div class="video-loader" id="videoLoader" aria-hidden="true"></div>
+                <video id="demoVideo" title="Study Mode demo" autoplay muted playsinline preload="auto">
+                    <!--
+                        REPLACE THIS SRC with your Study Mode demo video URL from Firebase Storage.
+                        The video should follow the shot-by-shot script at the bottom of this file.
+                    -->
+                    <source src="https://firebasestorage.googleapis.com/v0/b/save-and-resume.firebasestorage.app/o/study-mode-demo.mp4?alt=media&token=337f2859-2fef-4228-8bf0-6dcab6bcf505" type="video/mp4">
+                    Your browser does not support the demo video.
+                </video>
+            </div>
+        </section>
+
+        <!-- WHAT'S NEW -->
+        <p class="section-label reveal reveal-4">What's new</p>
+        <section class="features reveal reveal-4" aria-label="New features">
+            <article class="feature-card">
+                <img class="feature-icon" src="PushPin.svg" alt="Multiple timestamps per video">
+                <h2 class="feature-title">Multiple timestamps per video</h2>
+                <p class="feature-desc">Save as many moments as you need in a single video. No more overwriting your last save.</p>
+            </article>
+            <article class="feature-card">
+                <img class="feature-icon" src="Pencil.svg" alt="Multiple timestamps per video">
+                <h2 class="feature-title">Notes on every timestamp</h2>
+                <p class="feature-desc">Add a personal note to each saved moment so you remember exactly why it mattered.</p>
+            </article>
+            <article class="feature-card">
+                <img class="feature-icon" src="ArrowsClockwise.svg".svg" alt="Multiple timestamps per video">
+                <h2 class="feature-title">Switch modes freely</h2>
+                <p class="feature-desc">Toggle between Resume Mode and Study Mode anytime. Your data is always kept safe.</p>
+            </article>
+        </section>
+
+        <!-- USE CASES -->
+        <p class="section-label reveal reveal-5">Made for moments like these</p>
+        <section class="usecases reveal reveal-5" aria-label="Use cases">
+            <div class="usecase-grid">
+                <article class="usecase-card">
+                    <span class="usecase-context">Learning</span>
+                    <h3 class="usecase-title">Watching a tutorial or lecture</h3>
+                    <p class="usecase-desc">Mark every concept you want to revisit and note what confused you so you can come back with focus.</p>
+                </article>
+                <article class="usecase-card">
+                    <span class="usecase-context">Research</span>
+                    <h3 class="usecase-title">Taking notes on a long video</h3>
+                    <p class="usecase-desc">Save key moments with your own commentary — like a notebook that lives inside the extension.</p>
+                </article>
+                <article class="usecase-card">
+                    <span class="usecase-context">Reference</span>
+                    <h3 class="usecase-title">Building a personal knowledge base</h3>
+                    <p class="usecase-desc">Collect the best moments from multiple videos with context, ready to export to Markdown.</p>
+                </article>
+                <article class="usecase-card">
+                    <span class="usecase-context">Casual</span>
+                    <h3 class="usecase-title">Just want to resume a video?</h3>
+                    <p class="usecase-desc">Study Mode is optional. Resume Mode still works exactly as before — one tap, right back where you left off.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <p class="section-label reveal reveal-6">How to get started</p>
+        <section class="how-it-works reveal reveal-6" aria-label="How to use Study Mode">
+            <div class="steps-list">
+                <div class="step-row">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Open the extension popup</h3>
+                        <p class="step-desc">Click the Save & Resume icon in your browser toolbar to open the popup.</p>
+                    </div>
+                </div>
+                <div class="step-row">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Tap your profile picture</h3>
+                        <p class="step-desc">Click the profile avatar in the top right corner to open the account menu.</p>
+                    </div>
+                </div>
+                <div class="step-row">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Turn on Study Mode</h3>
+                        <p class="step-desc">Toggle Study Mode on. All your video cards will switch to Study Mode immediately. You can also turn it on per video using the three-dot menu on any card.</p>
+                    </div>
+                </div>
+                <div class="step-row">
+                    <div class="step-num">4</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Save timestamps on YouTube</h3>
+                        <p class="step-desc">Go to any YouTube video. Press the Save Timestamp button or Alt+S. A modal will appear where you can add a note right as you save.</p>
+                    </div>
+                </div>
+                <div class="step-row">
+                    <div class="step-num">5</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Expand your card to see everything</h3>
+                        <p class="step-desc">Back in the popup, click Expand on any Study Mode card to see all your timestamps and notes in one place. Click any note to edit it inline.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REASSURANCE -->
+        <div class="reassurance reveal reveal-6">
+            <img class="reassurance-icon" src="Lock.svg" alt="Lock">
+            <p class="reassurance-text">
+                <strong>Your existing timestamps are safe.</strong> Nothing was deleted or changed by this update. Resume Mode still works exactly as before. Study Mode is a completely optional layer on top of what you already use.
+            </p>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-area reveal reveal-7">
+            <a class="cta-button" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+                Try Study Mode on YouTube
+            </a>
+            <p class="cta-sub">Open any video, switch on "Study Mode", press Option/Alt+S, and add your first note.</p>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer reveal reveal-7">
+            Save &amp; Resume v1.3.0 &nbsp;·&nbsp;
+            <a href="https://chromewebstore.google.com/detail/save-resume/bdhfmkbbfmbhimbnhdglopcdlkihpike" target="_blank" rel="noopener noreferrer">Rate on Chrome Store</a>
+            &nbsp;·&nbsp;
+            <a href="https://saveandresume.vercel.app" target="_blank" rel="noopener noreferrer">Website</a>
+        </footer>
+
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const version = params.get('version');
+        const ref = params.get('ref');
+        window.saveResumeUpdateMeta = { version, ref };
+
+        const demoVideo = document.getElementById('demoVideo');
+        const videoLoader = document.getElementById('videoLoader');
+        let videoReady = false;
+
+        const hideLoader = () => {
+            if (videoLoader) videoLoader.classList.add('is-hidden');
+        };
+
+        const tryAutoplay = () => {
+            if (!demoVideo) return;
+            const playAttempt = demoVideo.play();
+            if (playAttempt && typeof playAttempt.catch === 'function') {
+                playAttempt.catch(() => {});
+            }
+        };
+
+        const onVideoReady = () => {
+            if (videoReady) return;
+            videoReady = true;
+            hideLoader();
+            tryAutoplay();
+        };
+
+        if (demoVideo) {
+            if (demoVideo.readyState >= 3) {
+                onVideoReady();
+            }
+            demoVideo.addEventListener('canplaythrough', onVideoReady, { once: true });
+            demoVideo.addEventListener('loadeddata', onVideoReady, { once: true });
+            demoVideo.addEventListener('error', hideLoader, { once: true });
+        }
+    </script>
+
+    <!--
+    ============================================================
+    DEMO VIDEO SCRIPT — Shot by shot
+    ============================================================
+
+    Total target length: 40 to 50 seconds.
+    No voiceover needed. Use subtle background music if desired.
+    Record at 2x and play back at normal speed for a snappy feel.
+    Use your actual extension, not mockups.
+
+    SHOT 1 — 0:00 to 0:04
+    Start on the Save & Resume popup, already open.
+    Show two or three normal Resume Mode cards with timestamps visible.
+    Just sit on this for a moment so the viewer recognises what they already know.
+
+    SHOT 2 — 0:04 to 0:08
+    Click the profile picture in the top right corner.
+    The profile dropdown opens smoothly.
+    The Study Mode toggle is visible and in the Off state.
+    Pause briefly on the dropdown so it reads clearly.
+
+    SHOT 3 — 0:08 to 0:12
+    Click the Study Mode toggle.
+    It flips to On — the red pill activates.
+    Close the dropdown by clicking away.
+    The popup re-renders — the cards now show the red badge on the thumbnail corner
+    and the Expand button where the timestamp used to be.
+    Let this land for a moment.
+
+    SHOT 4 — 0:12 to 0:22
+    Switch to a YouTube video — ideally a tutorial or lecture-style video, not music.
+    Press the Save Timestamp button on the video page.
+    The save modal appears. It shows the video thumbnail, title, and timestamp.
+    Type a short note in the notes field — something like "come back to this part".
+    Click Save. The toast notification confirms the save.
+    Scrub the video forward to a different moment.
+    Press Save Timestamp again.
+    The notes modal appears again (simpler version, no category selector).
+    Type a second note — "great explanation here".
+    Click Save.
+
+    SHOT 5 — 0:22 to 0:30
+    Switch back to the Save & Resume popup.
+    Find the card for the video you just saved to.
+    It shows the red Study Mode badge and the Expand button.
+    Click Expand.
+    The card expands smoothly downward — an accordion animation.
+    Two timestamp rows appear, each with its note text beside the time.
+
+    SHOT 6 — 0:30 to 0:38
+    Click on the note text in one of the rows.
+    It becomes an inline editable input field.
+    Edit the note — change or add a word.
+    Click away. The note saves and returns to display text.
+    The edit feels instant and smooth.
+
+    SHOT 7 — 0:38 to 0:45
+    Zoom out slightly to show the full expanded card looking clean and useful.
+    Fade to black.
+    Fade in the Save & Resume wordmark logo centred on a dark background.
+    Hold for 2 seconds.
+    End.
+
+    ============================================================
+    AFTER RECORDING
+    ============================================================
+    Upload the final video to Firebase Storage in the same bucket as
+    the existing welcome page video. Replace the REPLACE_WITH_STUDY_MODE_VIDEO_URL
+    placeholder in the <source> tag above with the new Firebase Storage URL.
+    ============================================================
+    -->
+
+</body>
+
+</html>

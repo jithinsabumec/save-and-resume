@@ -5,12 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Save & Resume - Welcome</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Space+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link rel="preload" href="/fonts/SaansCollectionVF-TRIAL.woff2" as="font" type="font/woff2" crossorigin>
     <style>
+        @font-face {
+            font-family: 'Saans';
+            src: url('/fonts/SaansCollectionVF-TRIAL.woff2') format('woff2');
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+        }
+
         :root {
             --bg: #101010;
             --surface: #191919;
@@ -42,7 +46,7 @@
             min-width: 1280px;
             background-color: var(--bg);
             color: var(--text);
-            font-family: 'Manrope', sans-serif;
+            font-family: 'Saans', sans-serif;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -75,10 +79,10 @@
         }
 
         .tagline {
-            margin: 8px 0 0;
+            margin: 24px 0 0;
             font-size: 18px;
             line-height: 1.3;
-            font-weight: 500;
+            font-weight: 400;
             color: var(--text-muted);
         }
 
@@ -96,7 +100,7 @@
             background: var(--surface);
             overflow: hidden;
             box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
-            margin-top: 24px;
+            margin-top: 8px;
         }
 
         .video-frame video {
@@ -191,7 +195,7 @@
             margin: 0;
             font-size: 14px;
             line-height: 1.25;
-            font-weight: 700;
+            font-weight: 500;
             color: var(--text);
         }
 
@@ -281,7 +285,9 @@
 <body>
     <div class="page">
         <header class="header reveal reveal-1">
-            <img style="width: 140px;" src="/icon_wordmark.svg" alt="Logo">
+            <a href="https://saveandresume.vercel.app/" target="_self" rel="noopener noreferrer">
+            <img style="width: 140px;" src="/logo(icon+wordmark).svg" alt="Logo">
+        </a>
             <p class="tagline">You are all set. Here is how to save your first timestamp.</p>
         </header>
 
