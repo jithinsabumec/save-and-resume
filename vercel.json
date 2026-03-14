@@ -7,6 +7,14 @@
     {
       "source": "/welcome/",
       "destination": "/welcome.html"
+    },
+    {
+      "source": "/study-mode",
+      "destination": "/study-mode.html"
+    },
+    {
+      "source": "/study-mode/",
+      "destination": "/study-mode.html"
     }
   ]
 }
